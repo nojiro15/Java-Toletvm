@@ -24,7 +24,7 @@ public class DAOProvinciaImpl {
 					rs.getInt("id"),
 					rs.getString("slug"),
 					rs.getString("provincia"),
-					rs.getInt("comunidad_id"));
+					rs.getInt("idComunidad"));
 		}
 	}
 	
@@ -39,13 +39,13 @@ public class DAOProvinciaImpl {
 		this.dataSource = dataSource;
 	}
 	
-	public Provincia read(int comunidadId){
+	public Provincia read(int IdComunidad){
 			
-			String sql="select id,provincia,slug from provincias where comunidad_id";
+			String sql="select id,provincia,slug from provincias where comunidad_id = ?";
 			
 			JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 			
-			Provincia p=jdbc.queryForObject(sql, new Object[]{comunidadId},new ProvinciaRowMapper());
+			Provincia p=jdbc.queryForObject(sql, new Object[]{IdComunidad},new ProvinciaRowMapper());
 			
 			return p;
 		}
@@ -70,11 +70,11 @@ public class DAOProvinciaImpl {
 	 */
 	public List<Provincia> listar(String letra){
 		
-		String sql="select id,provincia,slug,comunidad_id from provincias where slug like ?%"; 
-		//REEVISAR ya que no se si ?% es para las palabras que empiezen- he vistos ejemplos que %? palabras que terminen y %?% que contenga
+		String sql="select * from provincias where slug like ?"; 
+	
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		List<Provincia> lista=jdbc.query(sql, new ProvinciaRowMapper());
+		List<Provincia> lista=jdbc.query(sql, new Object[]{letra + "%"}, new ProvinciaRowMapper());
 		
 		return lista;
 	}

@@ -5,7 +5,7 @@ public class Municipio {
 	/**
 	 * Idendificador de la provincia al que pertenece el municipio
 	 */
-	private int provinciaId;
+	private int idProvincia;
 	/**
 	 * Nombre del municipio, contiene mayusculas, tildes y caracteres.
 	 */
@@ -19,7 +19,7 @@ public class Municipio {
 	private int id;
 	
 	/**
-	 * slug es el nombre el municipio en texto plano.
+	 * slug es el nombre del municipio en texto plano.
 	 */
 	
 	private String slug;
@@ -40,20 +40,20 @@ public class Municipio {
 	 * @param id: Identificador del municipio
 	 * @param slug: Nombre del municipio en texto plano
 	 */
-	public Municipio(int provinciaId, String municipio, int id, String slug){
-		this.provinciaId=provinciaId;
+	public Municipio(int idProvincia, String municipio, int id, String slug){
+		this.idProvincia=idProvincia;
 		this.municipio=municipio;
 		this.id=id;
 		this.slug=slug;
 	}
 
 	//Getters y Setters
-	public int getProvinciaId() {
-		return provinciaId;
+	public int getIdProvincia() {
+		return idProvincia;
 	}
 
-	public void setProvinciaId(int provinciaId) {
-		this.provinciaId = provinciaId;
+	public void setIdProvincia(int idProvincia) {
+		this.idProvincia = idProvincia;
 	}
 
 	public String getMunicipio() {
