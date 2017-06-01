@@ -20,10 +20,13 @@ public class Formacion {
 	private Date fechaInicio; 
 	
 	/**
-	 * Constructores (vacío y con propiedades)
+	 * Constructores (vacío , con todas las propiedades, y con propiedades excepto id)
 	 */
 	public Formacion(){}
-	
+	public Formacion(String nombre, Date fechaInicio){
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+	}
 	public Formacion(int id, String nombre, Date fechaInicio){
 		this.id = id;
 		this.nombre = nombre;
