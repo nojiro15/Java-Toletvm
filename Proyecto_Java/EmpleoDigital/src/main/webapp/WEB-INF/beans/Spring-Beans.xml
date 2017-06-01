@@ -17,25 +17,12 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<bean id="daoFormacion" class="dao.DAOFormacionImpl" scope="singleton">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-<<<<<<< HEAD
 	
 	<bean id="daoModulo" class="dao.DAOModuloImpl" scope="singleton">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
 	<bean id="daoModuloFormacion" class="dao.DAOModuloFormacionImpl" scope="singleton">
-=======
-	<bean id="daoMunicipio" class="dao.DAOMunicipioImpl" scope="singleton">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	<bean id="daoProvincia" class="dao.DAOProvinciaImpl" scope="singleton">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	<bean id="daoComunidad" class="dao.DAOUserImpl" scope="singleton">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	<bean id="daoUser" class="dao.DAOFormacionImpl" scope="singleton">
->>>>>>> d449b2cf40de34d24a0bec7b11adc6a916de141f
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
