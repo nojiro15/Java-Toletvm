@@ -1,22 +1,44 @@
 package modelos;
 
+/**
+ * 
+ * @author JavaToletvm
+ *
+ */
 public class Modulo {
 	
-	//Enumeración Bloque
+	/**
+	 * Enumeración Bloque
+	 *
+	 */
 	public enum Bloque{
-		TRONCAL, METODOLOGIAS, HABILIDADES;
+		/**
+		 * 'Bloque' == 0 ==> TRONCAL hace referencia a los módulos propios de la formación
+		 * 'Bloque' == 1 ==> METODO hace referencia a los módulos de Metodologías Ágiles
+		 * 'Bloque' == 2 ==> SUMA hace referencia a los módulos de Habilidades Personales
+		 */
+		TRONCAL, METODO, SUMA;
 	}
 	
-	//Propiedades del objeto Módulo
-	private int id; //Identificador del módulo en la base de datos
-	private String nombre; //Nombre del módulo. Ejemplo: Metodologías Ágiles
-	private int jornadas; //Número de jornadas que durará el módulo
-	private int horas; //Número de horas de las que constará el módulo
-	private int horasTutorias; //Número de horas de tutoría de las que constará el módulo
-	private Bloque bloque; //Bloque al que pertenecerá el módulo.
+	/**Propiedades del objeto Módulo
+	 *  id --Identificador del módulo en la base de datos
+	 *  nombre --Nombre del módulo. Ejemplo: Metodologías Ágiles
+	 *  jornadas --Número de jornadas que durará el módulo
+	 *  horas --Número de horas de las que constará el módulo
+	 *  horasTutorias --Número de horas de tutoría de las que constará el módulo
+	 *  bloque --Bloque al que pertenecerá el módulo.
+	 */
+	private int id;
+	private String nombre; 
+	private int jornadas; 
+	private int horas; 
+	private int horasTutorias; 
+	private Bloque bloque; 
 	
 	
-	//Constructores (vacío y con propiedades)
+	/**
+	 * Constructores (vacío y con propiedades)
+	 */
 	public Modulo(){}
 	
 	public Modulo(int id, String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque){
@@ -28,7 +50,9 @@ public class Modulo {
 	}
 	
 	
-	//Getters
+	/**
+	 * Getters
+	 */
 	public int getId() {
 		return id;
 	}
@@ -48,7 +72,9 @@ public class Modulo {
 		return bloque;
 	}
 	
-	//Setters
+	/**
+	 * Setters
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}

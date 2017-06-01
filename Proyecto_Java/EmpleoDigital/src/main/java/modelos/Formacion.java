@@ -2,14 +2,26 @@ package modelos;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author JavaToletvm
+ *
+ */
 public class Formacion {
 	
-	//Propiedades del objeto Formacion
-	private int id; //Identificador de la formación dentro de la base de datos
-	private String nombre; //Nombre de la formación. Ejemplo: Java Toledo
-	private Date fechaInicio; //Fecha de inicio de la formación
+	/**
+	 * Propiedades del objeto Formacion
+	 * id --Identificador de la formación dentro de la base de datos
+	 * nombre --Nombre de la formación. Ejemplo: Java Toledo
+	 * fechaInicio --Fecha de inicio de la formación
+	 */
+	private int id; 
+	private String nombre; 
+	private Date fechaInicio; 
 	
-	//Constructores (vacío y con propiedades)
+	/**
+	 * Constructores (vacío y con propiedades)
+	 */
 	public Formacion(){}
 	
 	public Formacion(int id, String nombre, Date fechaInicio){
@@ -18,7 +30,9 @@ public class Formacion {
 		this.fechaInicio = fechaInicio;
 	}
 	
-	//Getters
+	/**
+	 * Getters
+	 */
 	public int getId() {
 		return id;
 	}
@@ -29,7 +43,9 @@ public class Formacion {
 		return fechaInicio;
 	}
 	
-	//Setters
+	/**
+	 * Setters
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}

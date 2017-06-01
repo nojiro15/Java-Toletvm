@@ -17,5 +17,13 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<bean id="daoFormacion" class="dao.DAOFormacionImpl" scope="singleton">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+	
+	<bean id="daoModulo" class="dao.DAOModuloImpl" scope="singleton">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="daoModuloFormacion" class="dao.DAOModuloFormacionImpl" scope="singleton">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
 </beans>
