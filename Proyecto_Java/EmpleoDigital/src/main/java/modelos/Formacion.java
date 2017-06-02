@@ -2,23 +2,64 @@ package modelos;
 
 import java.util.Date;
 
+import utils.DateUtils;
+
+/**
+ * 
+ * @author JavaToletvm
+ *
+ */
 public class Formacion {
 	
-	//Propiedades del objeto Formacion
-	private int id; //Identificador de la formación dentro de la base de datos
-	private String nombre; //Nombre de la formación. Ejemplo: Java Toledo
-	private Date fechaInicio; //Fecha de inicio de la formación
+	/**
+	 * Propiedades del objeto Formacion
+	 * id --Identificador de la formación dentro de la base de datos
+	 * nombre --Nombre de la formación. Ejemplo: Java Toledo
+	 * fechaInicio --Fecha de inicio de la formación
+	 */
+	private int id; 
+	private String nombre; 
+	private Date fechaInicio;
+	private int idMunicipio;
+	private Date fechaFin;
 	
-	//Constructores (vacío y con propiedades)
+	/**
+	 * Constructores por orden:
+	 * Vacío
+	 * Sin Id y sin Fecha de Fin
+	 * Sin Id y con Fecha de Fin
+	 * Con Id y sin Fecha de Fin
+	 * Con Id y con Fecha de Fin
+	 */
 	public Formacion(){}
 	
-	public Formacion(int id, String nombre, Date fechaInicio){
-		this.id = id;
+	public Formacion(String nombre, Date fechaInicio, int idMunicipio){
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 	}
 	
-	//Getters
+	public Formacion(String nombre, Date fechaInicio, int idMunicipio, Date fechaFin){
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+	}
+	
+	public Formacion(int id, String nombre, Date fechaInicio, int idMunicipio){
+		this.id = id;
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+	}
+	public Formacion(int id, String nombre, Date fechaInicio, int idMunicipio, Date fechaFin){
+		this.id = id;
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+	}
+	
+	/**
+	 * Getters
+	 */
+	
 	public int getId() {
 		return id;
 	}
@@ -28,8 +69,17 @@ public class Formacion {
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
+	public int getIdMunicipio(){
+		return idMunicipio;
+	}
 	
-	//Setters
+	public Date getFechaFin(){
+		return fechaFin;
+	}
+	
+	/**
+	 * Setters
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -38,5 +88,18 @@ public class Formacion {
 	}
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
+	}
+	public void setIdMunicipio(int idMunicipio){
+		this.idMunicipio = idMunicipio;
+	}
+	public void setFechaFin(Date fechaFin){
+		this.fechaFin = fechaFin;
+	}
+	
+	public String getStringFechaInicio(){
+		return DateUtils.formatearFecha(fechaInicio);
+	}
+	public String getStringFechaFin(){
+		return DateUtils.formatearFecha(fechaFin);
 	}
 }
