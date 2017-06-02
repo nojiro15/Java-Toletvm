@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2017 a las 14:22:48
+-- Tiempo de generación: 02-06-2017 a las 11:47:20
 -- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 7.1.1
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `empleodigital`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `authorities`
+--
+
+CREATE TABLE `authorities` (
+  `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `authority` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -64,7 +75,8 @@ CREATE TABLE `fiesta_regional` (
 CREATE TABLE `formaciones` (
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_inicio` date NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `fecha_fin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +168,12 @@ CREATE TABLE `vacaciones` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `authorities`
+--
+ALTER TABLE `authorities`
+  ADD PRIMARY KEY (`username`,`authority`);
 
 --
 -- Indices de la tabla `fiesta_local`
@@ -251,6 +269,12 @@ ALTER TABLE `vacaciones`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `authorities`
+--
+ALTER TABLE `authorities`
+  ADD CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `fiesta_local`

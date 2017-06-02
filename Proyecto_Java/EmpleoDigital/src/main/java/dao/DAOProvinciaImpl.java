@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import modelos.Provincia;
 
-public class DAOProvinciaImpl {
+public class DAOProvinciaImpl implements DAOProvincia{
 
 	
 	private class ProvinciaRowMapper implements RowMapper<Provincia>{
