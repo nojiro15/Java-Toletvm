@@ -4,9 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import modelos.Formacion;
+import modelos.Modulo;
 import modelos.ModuloFormacion;
 import modelos.Modulo.Bloque;
 
@@ -32,35 +36,87 @@ public class DAOModuloFormacionImpl implements DAOModuloFormacion{
 					rs.getInt("horas"),
 					rs.getInt("horasTutorias"), 
 					bloque,					
-					rs.getInt("id_formacion"),
+					rs.getInt("idFormacion"),
 					rs.getInt("orden"),
-					rs.getDate("fecha_inicio")) ;
+					new java.util.Date(rs.getDate("fechaInicio").getTime()));
 		}
 	}
-	
+	/**
+	 * DataSource
+	 */
+	private DataSource dataSource;
+	/**
+	 * Get DataSource
+	 */
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+	/**
+	 * Set DataSource
+	 */
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 	public boolean create(ModuloFormacion mf) {
-		String sql = "";
-		return false;
+		String sql = "insert into formaciones_modulos(id_formacion, id_modulo, orden, fecha_inicio)"
+				+ " values(?,?,?,?)";
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		int n = jdbc.update(sql, new Object[]{
+				mf.getIdFormacion(),
+				mf.getId(),
+				mf.getOrden(),
+				mf.getFechaInicio().getTime()});
+		
+		return n>0;
 	}
 
 	public List<ModuloFormacion> read(String palabra) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from formaciones_modulos join modulos on id where nombre like ?";
+		List<ModuloFormacion> lista;
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		lista = jdbc.query(sql, 
+				new Object[]{"%" + palabra +"%"},
+				new ModuloFormacionRowMapper());
+		return lista;
 	}
 
 	public boolean update(ModuloFormacion mf) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "update formaciones_modulos set "
+				+ "orden = ?, "
+				+ "fecha_inicio = ? "
+				+ "where id_formacion = ? and id_modulo = ?";
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		int n = jdbc.update(sql,
+				new Object[]{mf.getOrden(),
+						mf.getFechaInicio().getTime(),
+						mf.getIdFormacion(),
+						mf.getId()});
+		return n > 0;
 	}
 
 	public boolean delete(ModuloFormacion mf) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "delete from formaciones_modulos where id_formacion = ? and id_modulo = ?";
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		int n = jdbc.update(sql, new Object[]{
+				mf.getIdFormacion(), mf.getId()});
+		
+		return n > 0;
 	}
 
 	public List<ModuloFormacion> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from formaciones_modulos join modulos on id order by bloque";
+		List<ModuloFormacion> lista;
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		lista = jdbc.query(sql, new ModuloFormacionRowMapper());
+		return lista;
 	}
 
 }

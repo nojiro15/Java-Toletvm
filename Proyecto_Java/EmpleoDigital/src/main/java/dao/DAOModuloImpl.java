@@ -79,7 +79,7 @@ public class DAOModuloImpl implements DAOModulo{
 	}
 
 	public List<Modulo> read(String palabra) {
-		String sql = "select * from modulos where nombre like = ?";
+		String sql = "select * from modulos where nombre like ?";
 		List<Modulo> lista;
 		
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);

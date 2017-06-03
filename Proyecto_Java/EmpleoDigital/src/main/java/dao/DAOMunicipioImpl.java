@@ -22,7 +22,7 @@ public class DAOMunicipioImpl implements DAOMunicipio {
 			return new Municipio(
 					rs.getInt("id"),
 					rs.getString("municipio"),
-					rs.getInt("provinciaId"),
+					rs.getInt("idProvincia"),
 					rs.getString("slug"));
 		}
 	}
@@ -41,13 +41,13 @@ public class DAOMunicipioImpl implements DAOMunicipio {
 	 * Modelo con el que se lee los datos en la BBDD con el identificador la provincia
 	 */
 	
-	public Municipio read(int provinciaId){
+	public Municipio read(int idProvincia){
 		
 		String sql="select id,municipio,slug from municipios where provincia_id";
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		Municipio m=jdbc.queryForObject(sql, new Object[]{provinciaId},new MunicipioRowMapper());
+		Municipio m=jdbc.queryForObject(sql, new Object[]{idProvincia},new MunicipioRowMapper());
 		
 		return m;
 	}

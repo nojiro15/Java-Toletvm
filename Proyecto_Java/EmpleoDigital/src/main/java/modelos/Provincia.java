@@ -17,7 +17,7 @@ public class Provincia {
 	/**
 	 * Codigo de la comunidad al que pertenece la provincia
 	 */
-	private int comunidadId;
+	private int idComunidad;
 	
 	/**
 	 * Constructor vacio para el beans
@@ -35,12 +35,12 @@ public class Provincia {
 	 * @param comunidadId: identificador de la comunidad
 	 */
 	
-	public Provincia(int id,String slug, String provincia, int comunidadId){
+	public Provincia(int id,String slug, String provincia, int idComunidad){
 		
 		this.id=id;
 		this.slug=slug;
 		this.provincia=provincia;
-		this.comunidadId=comunidadId;
+		this.idComunidad=idComunidad;
 	}
 	
 	/*
@@ -71,12 +71,12 @@ public class Provincia {
 		this.provincia = provincia;
 	}
 
-	public int getComunidadId() {
-		return comunidadId;
+	public int getIdComunidad() {
+		return idComunidad;
 	}
 
-	public void setComunidadId(int comunidadId) {
-		this.comunidadId = comunidadId;
+	public void setIdComunidad(int idComunidad) {
+		this.idComunidad = idComunidad;
 	}
 	
 	

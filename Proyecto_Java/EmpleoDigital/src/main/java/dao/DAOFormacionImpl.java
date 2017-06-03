@@ -1,6 +1,7 @@
 package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -19,7 +20,9 @@ public class DAOFormacionImpl implements DAOFormacion{
 			return new Formacion(
 					rs.getInt("id"),
 					rs.getString("nombre"),
-					rs.getDate("fechaInicio"));
+					new java.util.Date(rs.getDate("fechaInicio").getTime()),
+					rs.getInt("idMunicipio"),
+					new java.util.Date(rs.getDate("fechaFin").getTime()));
 		}
 	}
 
@@ -37,15 +40,17 @@ public class DAOFormacionImpl implements DAOFormacion{
 	
 	//Crear nueva formacion en la base de datos
 	public boolean create(Formacion f) {
-		String sql = "insert into formaciones(nombre, fecha_inicio)"
-				+ " values(?,?,?)";
+		String sql = "insert into formaciones(nombre, fecha_inicio, id_municipio, fecha_fin)"
+				+ " values(?,?,?,?)";
 		
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		
 		int n = jdbc.update(sql,
 				new Object[]{
 						f.getNombre(),
-						f.getFechaInicio()});
+						f.getFechaInicio().getTime(),
+						f.getIdMunicipio(),
+						f.getFechaFin().getTime()});
 		return n > 0;
 	}
 
@@ -65,7 +70,9 @@ public class DAOFormacionImpl implements DAOFormacion{
 	public boolean update(Formacion f) {
 		String sql = "update formaciones set "
 				+ "nombre = ?, "
-				+ "fecha_inicio = ? "
+				+ "fecha_inicio = ?, "
+				+ "id_municipio = ?, "
+				+ "fecha_fin = ? "
 				+ "where id = ?";
 		
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
@@ -73,7 +80,9 @@ public class DAOFormacionImpl implements DAOFormacion{
 		int n = jdbc.update(sql, 
 				new Object[]{
 						f.getNombre(),
-						f.getFechaInicio(),
+						f.getFechaInicio().getTime(),
+						f.getIdMunicipio(),
+						f.getFechaFin().getTime(),
 						f.getId()});
 		return n > 0;
 	}
@@ -100,7 +109,5 @@ public class DAOFormacionImpl implements DAOFormacion{
 		
 		return lista;
 	}
-
-
 
 }

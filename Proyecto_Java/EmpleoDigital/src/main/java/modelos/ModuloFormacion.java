@@ -3,6 +3,7 @@ package modelos;
 import java.util.Date;
 
 import modelos.Modulo.Bloque;
+import utils.DateUtils;
 
 /**
  * ModuloFormacion será una clase hija de Modulo, que incluirá propiedades de los módulos de una formación concreta.
@@ -26,9 +27,16 @@ public class ModuloFormacion extends Modulo{
 	 * Constructores
 	 */
 	public ModuloFormacion(){}
+	
 	public ModuloFormacion(int id, String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque,int idFormacion, int orden, Date fechaInicio){
-		super(id,nombre,jornadas,horas, horasTutoria, bloque);
+		super(id, nombre,jornadas,horas, horasTutoria, bloque);
 		this.idFormacion = idFormacion;
+		this.orden = orden;
+		this.fechaInicio = fechaInicio;
+	}
+	
+	public ModuloFormacion(String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque, int orden, Date fechaInicio){
+		super(nombre,jornadas,horas, horasTutoria, bloque);
 		this.orden = orden;
 		this.fechaInicio = fechaInicio;
 	}
@@ -64,5 +72,9 @@ public class ModuloFormacion extends Modulo{
 	}
 	
 	
+	public String getStringFechaInicio(){
+		return DateUtils.formatearFecha(fechaInicio);
+	}
+
 	
 }

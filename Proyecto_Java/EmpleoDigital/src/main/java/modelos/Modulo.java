@@ -41,6 +41,13 @@ public class Modulo {
 	 */
 	public Modulo(){}
 	
+	public Modulo(String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque){
+		this.nombre = nombre;
+		this.horas = horas;
+		this.horasTutorias = horasTutoria;
+		this.bloque = bloque;
+	}
+	
 	public Modulo(int id, String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque){
 		this.id = id;
 		this.nombre = nombre;
