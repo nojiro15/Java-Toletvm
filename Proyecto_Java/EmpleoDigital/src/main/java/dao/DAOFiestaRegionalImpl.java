@@ -4,6 +4,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -22,8 +23,8 @@ public class DAOFiestaRegionalImpl implements DAOFiestaRegional{
 		public FiestaRegional mapRow(ResultSet rs,int numRow) throws SQLException{
 			FiestaRegional r=new FiestaRegional(
 					rs.getString("nombre"),
-					new java.util.Date(rs.getDate("fecha").getTime()),
-					rs.getInt("idComunidad"));		
+					rs.getDate("fecha"),
+					rs.getInt("id_comunidad"));		
 	
 			return r;
 		}	
@@ -45,50 +46,52 @@ public class DAOFiestaRegionalImpl implements DAOFiestaRegional{
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="insert into fiesta_regional (nombre,fecha,id_comunidad) values (?,?,?)";
+		String sql="insert ignore into fiesta_regional (nombre,fecha,id_comunidad) values (?,?,?)";
 	
-		int n=jdbc.update(sql,new Object[]{r.getNombre(),r.getFecha().getTime(),r.getIdComunidad()});
+		int n=jdbc.update(sql,new Object[]{r.getNombre(),r.getFecha(),r.getIdComunidad()});
 		
 		return n>0;		
 	}
 	
 	
-	public FiestaRegional read(String palabra){
+	public FiestaRegional read(Date fecha){
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="select * from fiesta_regional like ?";
+		String sql="select * from fiesta_regional where fecha = ?";
 	
-		FiestaRegional r=jdbc.queryForObject(sql, new Object[]{"%"+palabra+"%"},new FiestaRegionalRowMapper()); 
+		FiestaRegional r=jdbc.queryForObject(sql, new Object[]{fecha},new FiestaRegionalRowMapper()); 
 		return r;
 	}
 	
 	
-	public boolean update(FiestaRegional r) {
+	public boolean update(FiestaRegional r, Date fechaOriginal) {
 		String sql="update fiesta_regional set "
-				+ "fecha=?,"
-				+ "id_comunidad=?"
-				+ "where nombre=? ";
+				+ "nombre = ?, "
+				+ "fecha=?, "
+				+ "id_comunidad= ? "
+				+ "where fecha=? ";
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
 		int n=jdbc.update(sql,
 				new Object[]{
-						new java.sql.Date(r.getFecha().getTime()),
+						r.getNombre(),
+						r.getFecha(),
 						r.getIdComunidad(),
-						r.getNombre(),});
+						fechaOriginal});
 		return n>0;
 	}
 	
 	
-	public boolean delete(String nombre){
+	public boolean delete(Date fecha){
 		boolean r=false;
 		
-		String sql="delete * from fiesta_regional where nombre=?";
+		String sql="delete fr.* from fiesta_regional as fr where fecha = ?";
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		int n=jdbc.update(sql,new Object[]{nombre});
+		int n=jdbc.update(sql,new Object[]{fecha});
 		r=n>0;
 		
 		return r;
@@ -107,4 +110,24 @@ public class DAOFiestaRegionalImpl implements DAOFiestaRegional{
 		return lista;
 	}
 	
+	
+	
+	public List<FiestaRegional> listarByIdFormacion(int idFormacion){
+		List<FiestaRegional> lista;
+		String sql = "select fr.* "
+				+ "from formaciones as f "
+					+ "join municipios as mun "
+						+ "on (f.id_municipio = mun.id) "
+					+ "join provincias as pro "
+						+ "on(mun.id_provincia=pro.id) "
+					+ "join comunidades as com "
+						+ "on(pro.id_comunidad = com.id) "
+					+ "join fiesta_regional as fr "
+						+ "on(fr.id_comunidad=com.id) "
+				+ "where f.id = ?";
+		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
+		lista = jdbc.query(sql, new Object[]{idFormacion}, new FiestaRegionalRowMapper());	
+		
+		return lista;
+	}
 }

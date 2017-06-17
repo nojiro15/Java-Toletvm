@@ -32,7 +32,7 @@ public class DAOModuloImpl implements DAOModulo{
 					rs.getString("nombre"),
 					rs.getInt("jornadas"),
 					rs.getInt("horas"),
-					rs.getInt("horasTutorias"), 
+					rs.getInt("horas_tutorias"), 
 					bloque);
 		}
 	}
@@ -55,8 +55,8 @@ public class DAOModuloImpl implements DAOModulo{
 	}
 	
 	public boolean create(Modulo m) {
-		String sql = "insert into modulos(nombre, jornadas, horas, horasTutorias, bloque)"
-				+ " values(?,?,?,?)";
+		String sql = "insert ignore into modulos(nombre, jornadas, horas, horas_tutorias, bloque)"
+				+ " values(?,?,?,?,?)";
 		int bloqueDB = 0;
 		if(m.getBloque() == Bloque.TRONCAL){
 			bloqueDB = 0;
@@ -137,6 +137,23 @@ public class DAOModuloImpl implements DAOModulo{
 		
 		lista = jdbc.query(sql, new ModuloRowMapper());
 		return lista;
+	}
+	
+	public List<Modulo> listarByBloque(int bloque) {
+		String sql = "select * from modulos as m where bloque = ?  order by m.nombre";
+		List<Modulo> lista;
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		lista = jdbc.query(sql, new Object[]{bloque}, new ModuloRowMapper());
+		return lista;
+	}
+	public Modulo readById(int id) {
+		String sql = "select * from modulos where id = ?";
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+
+		Modulo m = jdbc.queryForObject(sql, new Object[]{id}, new ModuloRowMapper());
+		return m;
 	}
 
 }

@@ -1,0 +1,122 @@
+/*CSS de la modal login*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+body {background: #456;font-family: 'Open Sans', sans-serif;}
+.login { width: 400px;margin: 16px auto;font-size: 16px;}
+/* Reset top and bottom margins from certain elements */
+.login-header,.login p { margin-top: 0;margin-bottom: 0;}
+/* The triangle form is achieved by a CSS hack */
+.login-triangle {width: 0;margin-right: auto;margin-left: auto;border: 12px solid transparent;border-bottom-color: #28d;}
+.login-header {background: #28d;padding: 20px;font-size: 1.4em;font-weight: normal;text-align: center;text-transform: uppercase;color: #fff;}
+.login-container {background: #ebebeb;padding: 12px;}
+/* Every row inside .login-container is defined with p tags */
+.login p {padding: 12px;}
+.login input {box-sizing: border-box;display: block;width: 100%;border-width: 1px;border-style: solid;padding: 16px;outline: 0;font-family: inherit;font-size: 0.95em;}
+.login input[type="email"],.login input[type="password"] {background: #fff;border-color: #bbb;color: #555;}
+/* Text fields' focus effect */
+.login input[type="email"]:focus, .login input[type="password"]:focus {  border-color: #888;}
+.login input[type="submit"] {background: #28d;border-color: transparent;color: #fff;cursor: pointer;}
+.login input[type="submit"]:hover {background: #17c;}
+/* Buttons' focus effect */
+.login input[type="submit"]:focus {border-color: #05a;}
+@media all and (max-width:450px){
+.login {width: 95%;}
+}
+/*form{
+	margin-top: 10em;
+	margin-left: 30em;
+	margin-right: 30em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	
+
+}
+/*
+form{
+	border:0.3em solid #2F4C92;
+	margin-top: 1em;
+	padding:1em;
+}
+#botoneraFest{
+	margin-top: 1em;
+	padding: 1em;
+}
+.planner{
+	width: 60%;
+	margin: 2em auto;
+	box-shadow: 0 0 40px rgba(0,0,0,0.5);
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.calendarioFest{
+
+	padding: 1em;
+	background-color: #333333;
+}
+.calendarioHeader{
+	color: #a7a7a7;
+	border-bottom: 1px solid #484848;
+	margin: 0; padding: 0;
+	text-align: center;
+	line-height: 0px;
+	font-size: 16px;
+	padding-bottom: 10px;
+	}
+	span, a{
+		display: inline-block;
+		font-size: 1.8em;
+		font-weight: 0.7em;
+		text-align: center;
+		line-height: 2em;
+	}
+	
+  a{
+    &:hover{
+      color: #98cd60;
+      cursor: pointer;
+    }
+	&:after{
+		content: '';
+		display: inline-block;
+		width: 100%;
+	}
+	}
+
+table{
+	width: 100%;
+	padding: 10px;
+	color: #9d9d9d;
+}
+
+th{
+	font-weight: normal;
+	font-size: 14px;
+	color: #5b5b5b;
+}
+
+td{
+	font-weight: normal;
+	font-size: 12px;
+	text-align: center;
+}
+
+
+td > span{
+	display: inline-block;
+	text-align: center;
+	padding: 0.5em; margin: 0px;
+	width: 0.2em; height: 0.2em;
+	line-height: 0.2em;
+	
+	:hover{
+		 font-weight: bold; 
+	}
+	
+	
+}
+.active{
+		border: 2px solid #98cd60;
+		border-radius: 60px;
+	}
+
+*/

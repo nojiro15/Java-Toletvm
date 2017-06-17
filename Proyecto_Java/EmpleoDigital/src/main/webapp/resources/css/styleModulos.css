@@ -1,0 +1,146 @@
+@import url(https://fonts.googleapis.com/css?family=Muli:400,300);
+
+
+
+.gu-mirror {
+  position: fixed!important;
+  margin: 0!important;
+  z-index: 9999 !important;
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none!important;
+  -moz-user-select: none!important;
+  -ms-user-select: none!important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: .2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+.gu-mirror {
+  opacity: .8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+* {
+  font-family: 'Muli';
+}
+.pad {
+  padding-left: 0;
+  padding-right: 0;
+}
+.bg {
+  padding: 20px 10px;
+  min-height: 2200px;
+  background: #e0eaf3;
+}
+.container-fluid .col-xs-2 div.box {
+  text-align: center;
+  margin: 1px auto;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  width: 90%;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+.container-fluid .col-xs-4 div.box {
+  text-align: center;
+  margin: 1px auto;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  width: 90%;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.drag-1,
+.drag-2,
+.drag-3,
+.drag-4,
+.drag-5 {
+  border-right: 1px solid #ccc;
+}
+.form-control {
+  margin: 1 auto;
+  margin-top: 5px;
+  width: 90%;
+  border-radius: 0;
+}
+.gwe {
+  border: none;
+}
+.btn {
+  margin-top: 10px;
+  border-radius: 0;
+}
+img {
+  margin: 0 auto;
+}
+.header {
+  padding-top: 5px;
+  height: 30px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ccc;
+}
+.white {
+  text-align: center;
+}
+.white .form-control {
+  margin-top: 0;
+}
+.white .input-label {
+  margin-top: 20px;
+  text-align: center;
+}
+.box .tasks {
+  padding-bottom: 1px;
+}
+.box .tasks .task-name {
+  font-size: 1.0em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.box .tasks .task-desc {
+  font-size: 1.0em;
+  color: #555;
+}
+.box .tasks .task-hor {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #555;
+}
+.box .tasks .task-jor {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #555;
+}
+.done div.box {
+  pointer-events: none;
+  background: #ddd !important;
+}
+.done div.box .tasks {
+  color: #fff !important;
+}
+.move {
+  text-align: center;
+  background: #eee;
+}
+.move .btn {
+  margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+

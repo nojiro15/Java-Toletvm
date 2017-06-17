@@ -1,5 +1,8 @@
 package modelos;
 
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
+
 public class Provincia {
 
 	/**
@@ -78,6 +81,17 @@ public class Provincia {
 	public void setIdComunidad(int idComunidad) {
 		this.idComunidad = idComunidad;
 	}
-	
+	/**
+	 * Metedo para trabajar con Json
+	 * @return
+	 */
+	public JsonObjectBuilder toJson(){
+		JsonObjectBuilder jb2=Json.createObjectBuilder();
+		jb2=jb2.add("idComunidad", idComunidad).add("provincia",provincia).
+				add("id",id).add("slug",slug);
+				
+				
+			return jb2;
+	}
 	
 }

@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -18,8 +19,8 @@ private class FiestaLocalRowMapper implements RowMapper<FiestaLocal>{
 		public FiestaLocal mapRow(ResultSet rs,int numRow) throws SQLException{
 			FiestaLocal l=new FiestaLocal(
 					rs.getString("nombre"),
-					new java.util.Date(rs.getDate("fecha").getTime()),
-					rs.getInt("idMunicipio"));			
+					rs.getDate("fecha"),
+					rs.getInt("id_municipio"));			
 	
 			return l;
 		}	
@@ -41,50 +42,51 @@ private class FiestaLocalRowMapper implements RowMapper<FiestaLocal>{
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="insert into fiesta_local (nombre,fecha,id_municipio) values (?,?,?)";
+		String sql="insert ignore into fiesta_local (nombre,fecha,id_municipio) values (?,?,?)";
 	
-		int n=jdbc.update(sql,new Object[]{l.getNombre(),l.getFecha().getTime(),l.getIdMunicipio()});
+		int n=jdbc.update(sql,new Object[]{l.getNombre(),l.getFecha(),l.getIdMunicipio()});
 		
 		return n>0;		
 	}
 	
 	
-	public FiestaLocal read(String palabra){
+	public FiestaLocal read(Date fecha){
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="select * from fiesta_local like ?";
+		String sql="select * from fiesta_local where fecha = ?";
 	
-		FiestaLocal l=jdbc.queryForObject(sql, new Object[]{"%"+palabra+"%"},new FiestaLocalRowMapper()); 
+		FiestaLocal l=jdbc.queryForObject(sql, new Object[]{fecha},new FiestaLocalRowMapper()); 
 		return l;
 	}
 	
 	
-	public boolean update(FiestaLocal l) {
+	public boolean update(FiestaLocal l, Date fechaOriginal) {
 		String sql="update fiesta_local set "
-				+ "fecha=?,"
-				+ "idMunicipio=?, "
-				+ "where nombre=? ";
-		
+				+ "nombre = ?, "
+				+ "fecha=?, "
+				+ "id_municipio= ? "
+				+ "where fecha=? ";
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
 		int n=jdbc.update(sql,
 				new Object[]{
 						l.getNombre(),
-						new java.sql.Date(l.getFecha().getTime()),
-						l.getIdMunicipio()});
+						l.getFecha(),
+						l.getIdMunicipio(),
+						fechaOriginal});
 		return n>0;
 	}
 	
 	
-	public boolean delete(int idMunicipio){
+	public boolean delete(Date fecha){
 		boolean r=false;
 		
-		String sql="delete * from fiesta_local where nombre=?";
+		String sql="delete fl.* from fiesta_local as fl where fecha=?";
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		int n=jdbc.update(sql,new Object[]{idMunicipio});
+		int n=jdbc.update(sql,new Object[]{fecha});
 		r=n>0;
 		
 		return r;
@@ -101,4 +103,23 @@ private class FiestaLocalRowMapper implements RowMapper<FiestaLocal>{
 		
 		return lista;
 	}
+
+	public List<FiestaLocal> listarByIdFormacion(int idFormacion) {
+		List<FiestaLocal> lista;
+		String sql = "select fl.* "
+				+ "from formaciones as f "
+					+ "join municipios as mun "
+						+ "on (f.id_municipio = mun.id) "
+					+ "join fiesta_local as fl "
+						+ "on(fl.id_municipio = mun.id) "
+				+ "where f.id = ?";
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		lista = jdbc.query(sql, new Object[]{idFormacion}, new FiestaLocalRowMapper());
+		
+		return lista;
+	}
+	
+	
 }

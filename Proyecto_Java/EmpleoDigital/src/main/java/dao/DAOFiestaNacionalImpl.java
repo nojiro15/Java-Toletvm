@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -18,8 +19,8 @@ private class FiestaNacionalRowMapper implements RowMapper<FiestaNacional>{
 		
 		public FiestaNacional mapRow(ResultSet rs,int numRow) throws SQLException{
 			FiestaNacional n=new FiestaNacional(
-					new java.util.Date(rs.getDate("fecha").getTime()),
-					rs.getString("nombre"));		
+					rs.getString("nombre"),
+					rs.getDate("fecha"));		
 	
 			return n;
 		}	
@@ -41,48 +42,49 @@ private class FiestaNacionalRowMapper implements RowMapper<FiestaNacional>{
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="insert into fiesta_nacional (fecha,nombre) values (?,?)";
+		String sql="insert ignore into fiesta_nacional (fecha,nombre) values (?,?)";
 	
-		int m=jdbc.update(sql,new Object[]{n.getFecha().getTime(),n.getNombre()});
+		int m=jdbc.update(sql,new Object[]{n.getFecha(),n.getNombre()});
 		
 		return m>0;		
 	}
 	
 	
-	public FiestaNacional read(String palabra){
+	public FiestaNacional read(Date fecha){
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="select * from fiesta_nacional like ?";
+		String sql="select * from fiesta_nacional where fecha = ?";
 	
-		FiestaNacional n=jdbc.queryForObject(sql, new Object[]{"%"+palabra+"%"},new FiestaNacionalRowMapper()); 
+		FiestaNacional n=jdbc.queryForObject(sql, new Object[]{fecha},new FiestaNacionalRowMapper()); 
 		return n;
 	}
 	
 	
-	public boolean update(FiestaNacional n) {
+	public boolean update(FiestaNacional n, Date fechaOriginal) {
 		String sql="update fiesta_nacional set "
-				+ "fecha=?,"
-				+ "where nombre=? ";
+				+ "fecha = ?, nombre = ? "
+				+ "where fecha = ?";
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
 		int m=jdbc.update(sql,
 				new Object[]{						
-						new java.sql.Date(n.getFecha().getTime()),
-						n.getNombre(),});
+						n.getFecha(),
+						n.getNombre(),
+						fechaOriginal});
 		return m>0;
 	}
 	
 	
-	public boolean delete(String nombre){
+	public boolean delete(Date fecha){
 		boolean r=false;
 		
-		String sql="delete * from fiesta_nacional where nombre=?";
+		String sql="delete fn.* from fiesta_nacional as fn where fecha=?";
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		int m=jdbc.update(sql,new Object[]{nombre});
+		int m=jdbc.update(sql,new Object[]{fecha});
 		r=m>0;
 		
 		return r;

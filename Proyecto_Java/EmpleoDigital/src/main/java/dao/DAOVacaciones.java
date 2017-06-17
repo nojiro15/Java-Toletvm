@@ -11,4 +11,5 @@ public interface DAOVacaciones {
 	public boolean update(Vacaciones v);
 	public boolean delete(int id);
 	public List<Vacaciones> listar();
+	public List<Vacaciones> listarByIdFormacion(int idFormacion);
 }

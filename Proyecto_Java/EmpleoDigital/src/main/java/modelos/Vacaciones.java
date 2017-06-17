@@ -8,8 +8,7 @@ public class Vacaciones {
 
 	private int id;
 	private String asunto;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private Date fecha;
 	private int idFormacion;
 	
 	public Vacaciones(){
@@ -17,19 +16,17 @@ public class Vacaciones {
 	}
 	
 	
-	public Vacaciones(int id,String asunto,Date fechaInicio,Date fechaFin, int idFormacion){
+	public Vacaciones(int id,String asunto,Date fecha, int idFormacion){
 		this.id=id;
 		this.asunto=asunto;
-		this.fechaInicio=fechaInicio;
-		this.fechaFin=fechaFin;
+		this.fecha=fecha;
 		this.idFormacion=idFormacion;
 	}
 	
 	
-	public Vacaciones(String asunto,Date fechaInicio,Date fechaFin, int idFormacion){
+	public Vacaciones(String asunto,Date fecha, int idFormacion){
 		this.asunto=asunto;
-		this.fechaInicio=fechaInicio;
-		this.fechaFin=fechaFin;
+		this.fecha=fecha;
 		this.idFormacion=idFormacion;
 	}
 	
@@ -54,24 +51,15 @@ public class Vacaciones {
 	}
 	
 	
-	public Date getFechaInicio() {
-		return fechaInicio;
+	public Date getFecha() {
+		return fecha;
 	}
 	
 	
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}	
 	
-	
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-	
-	
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
 	
 	
 	public int getIdFormacion() {
@@ -83,10 +71,7 @@ public class Vacaciones {
 		this.idFormacion = idFormacion;
 	}
 	
-	public String getStringFechaInicio(){
-		return DateUtils.formatearFecha(fechaInicio);
-	}
-	public String getStringFechaFin(){
-		return DateUtils.formatearFecha(fechaFin);
+	public String getStringFecha(){
+		return DateUtils.formatearFecha(fecha);
 	}
 }

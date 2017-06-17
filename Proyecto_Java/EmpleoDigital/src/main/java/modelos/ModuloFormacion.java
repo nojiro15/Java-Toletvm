@@ -19,7 +19,9 @@ public class ModuloFormacion extends Modulo{
 	 * orden --Lugar que ocupa el módulo en la planificación de la formación.
 	 * fechaInicio --Fecha en la que empieza el módulo dentro de la formación.
 	 */
-	private int idFormacion; 
+	
+	private int idFormacion;
+	private int idModulo;
 	private int orden; 
 	private Date fechaInicio; 
 	
@@ -28,15 +30,24 @@ public class ModuloFormacion extends Modulo{
 	 */
 	public ModuloFormacion(){}
 	
-	public ModuloFormacion(int id, String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque,int idFormacion, int orden, Date fechaInicio){
-		super(id, nombre,jornadas,horas, horasTutoria, bloque);
+	public ModuloFormacion(Modulo m, int idFormacion, int orden, Date fechaInicio){
+		super(m.getId(), m.getNombre(), m.getJornadas(), m.getHoras(), m.getHorasTutorias(), m.getBloque());
 		this.idFormacion = idFormacion;
 		this.orden = orden;
 		this.fechaInicio = fechaInicio;
 	}
 	
-	public ModuloFormacion(String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque, int orden, Date fechaInicio){
+	
+	public ModuloFormacion(int idModulo, String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque,int idFormacion, int orden, Date fechaInicio){
+		super(idModulo, nombre,jornadas,horas, horasTutoria, bloque);
+		this.idFormacion = idFormacion;
+		this.orden = orden;
+		this.fechaInicio = fechaInicio;
+	}
+	
+	public ModuloFormacion(String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque,int idFormacion, int orden, Date fechaInicio){
 		super(nombre,jornadas,horas, horasTutoria, bloque);
+		this.idFormacion = idFormacion;
 		this.orden = orden;
 		this.fechaInicio = fechaInicio;
 	}
@@ -73,7 +84,8 @@ public class ModuloFormacion extends Modulo{
 	
 	
 	public String getStringFechaInicio(){
-		return DateUtils.formatearFecha(fechaInicio);
+		String stFechaInicio = utils.DateUtils.formatearFecha(fechaInicio);
+		return stFechaInicio;
 	}
 
 	

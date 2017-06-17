@@ -1,0 +1,23 @@
+# Empty CSS file for your own CSS
+.btn,
+.btn-success,
+.btn-block{
+	color:#003245;
+}
+
+
+img{
+	
+	padding: 2em;
+}
+.fondo{
+	background-color: #003245;
+}
+h3{
+	color:white;
+}
+#catalogo{
+	margin-top: 2em;
+	margin-left: 1em;
+	margin-right: 1em;
+}

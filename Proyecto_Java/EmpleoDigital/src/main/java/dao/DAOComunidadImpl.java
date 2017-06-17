@@ -41,7 +41,7 @@ public class DAOComunidadImpl implements DAOComunidad {
 	 */
 	public Comunidad read(int id){
 		
-		String sql="select id,comunidad,slug from comunidades where id=?";
+		String sql="select * from comunidades where id=?";
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
@@ -57,7 +57,7 @@ public class DAOComunidadImpl implements DAOComunidad {
 	
 	public List<Comunidad> listar(){
 		
-		String sql="select id,comunidad,slug from comunidades order by comunidad asc";
+		String sql="select * from comunidades order by comunidad asc";
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
