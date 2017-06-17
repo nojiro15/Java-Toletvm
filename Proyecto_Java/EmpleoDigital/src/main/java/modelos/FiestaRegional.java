@@ -48,5 +48,8 @@ public class FiestaRegional {
 	public String getStringFecha(){
 		return DateUtils.formatearFecha(fecha);
 	}
-
+	public long getIntFecha(){
+		long i = fecha.getTime();
+		return i;
+	}
 }

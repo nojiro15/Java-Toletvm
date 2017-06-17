@@ -9,8 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import modelos.Formacion;
-import modelos.Modulo;
+
 import modelos.ModuloFormacion;
 import modelos.Modulo.Bloque;
 
@@ -34,11 +33,11 @@ public class DAOModuloFormacionImpl implements DAOModuloFormacion{
 					rs.getString("nombre"),
 					rs.getInt("jornadas"),
 					rs.getInt("horas"),
-					rs.getInt("horasTutorias"), 
+					rs.getInt("horas_tutorias"), 
 					bloque,					
-					rs.getInt("idFormacion"),
+					rs.getInt("id_formacion"),
 					rs.getInt("orden"),
-					new java.util.Date(rs.getDate("fechaInicio").getTime()));
+					rs.getDate("fecha_inicio"));
 		}
 	}
 	/**
@@ -58,7 +57,7 @@ public class DAOModuloFormacionImpl implements DAOModuloFormacion{
 		this.dataSource = dataSource;
 	}
 	public boolean create(ModuloFormacion mf) {
-		String sql = "insert into formaciones_modulos(id_formacion, id_modulo, orden, fecha_inicio)"
+		String sql = "insert ignore into formaciones_modulos(id_formacion, id_modulo, orden, fecha_inicio)"
 				+ " values(?,?,?,?)";
 		
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
@@ -67,13 +66,15 @@ public class DAOModuloFormacionImpl implements DAOModuloFormacion{
 				mf.getIdFormacion(),
 				mf.getId(),
 				mf.getOrden(),
-				mf.getFechaInicio().getTime()});
+				mf.getFechaInicio()});
 		
 		return n>0;
 	}
 
 	public List<ModuloFormacion> read(String palabra) {
-		String sql = "select * from formaciones_modulos join modulos on id where nombre like ?";
+		String sql = "select * from formaciones_modulos as fm"
+				+ " join modulos as m "
+				+ "on (fm.id_modulo = m.id) where nombre like ?";
 		List<ModuloFormacion> lista;
 		
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
@@ -110,7 +111,10 @@ public class DAOModuloFormacionImpl implements DAOModuloFormacion{
 	}
 
 	public List<ModuloFormacion> listar() {
-		String sql = "select * from formaciones_modulos join modulos on id order by bloque";
+		String sql = "select * from formaciones_modulos as fm"
+				+ " join modulos as m"
+				+ " on (fm.id_modulo = m.id)"
+				+ " order by nombre";
 		List<ModuloFormacion> lista;
 		
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
@@ -119,4 +123,34 @@ public class DAOModuloFormacionImpl implements DAOModuloFormacion{
 		return lista;
 	}
 
+	public List<ModuloFormacion> listarByIdFormacion(int idFormacion){
+		List<ModuloFormacion> lista;
+		
+		String sql = "select fm.*, m.*"
+				+ "from formaciones as f "
+					+ "join formaciones_modulos as fm "
+						+ "on (fm.id_formacion = f.id) "
+					+ "join modulos as m "
+						+ "on(fm.id_modulo = m.id) "
+				+ "where f.id = ? order by fm.orden";
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		lista = jdbc.query(sql, new Object[]{idFormacion} , new ModuloFormacionRowMapper());
+		
+		return lista;
+	}
+	
+	public List<ModuloFormacion> listarByBloque(int bloque) {
+		String sql = "select * from formaciones_modulos as fm"
+				+ " join modulos as m "
+				+ "on (fm.id_modulo = m.id)"
+				+ " where bloque = ? "
+				+ "order by m.nombre";
+		List<ModuloFormacion> lista;
+		
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		lista = jdbc.query(sql, new Object[]{bloque} , new ModuloFormacionRowMapper());
+		return lista;
+	}
 }

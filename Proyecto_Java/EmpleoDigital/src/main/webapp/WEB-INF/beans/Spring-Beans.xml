@@ -10,8 +10,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/empleodigital" />
-		<property name="username" value="javatoletvm" />
-		<property name="password" value="proyectofinal" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
 	</bean>
 	
 	<bean id="daoFormacion" class="dao.DAOFormacionImpl" scope="singleton">
@@ -23,10 +23,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<bean id="daoProvincia" class="dao.DAOProvinciaImpl" scope="singleton">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-	<bean id="daoComunidad" class="dao.DAOUserImpl" scope="singleton">
+	<bean id="daoComunidad" class="dao.DAOComunidadImpl" scope="singleton">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-	<bean id="daoUser" class="dao.DAOFormacionImpl" scope="singleton">
+	<bean id="daoUser" class="dao.DAOUserImpl" scope="singleton">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	<bean id="daoVacaciones" class="dao.DAOVacacionesImpl" scope="singleton">

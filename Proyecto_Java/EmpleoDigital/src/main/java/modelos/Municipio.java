@@ -1,5 +1,8 @@
 package modelos;
 
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
+
 public class Municipio {
 
 	/**
@@ -80,6 +83,17 @@ public class Municipio {
 		this.slug = slug;
 	}
 	
-	
+	/**
+	 * Metedo para trabajar con Json
+	 * @return
+	 */
+	public JsonObjectBuilder toJson(){
+		JsonObjectBuilder jb2=Json.createObjectBuilder();
+		jb2=jb2.add("idProvincia", idProvincia).add("municipio",municipio).
+				add("id",id).add("slug",slug);
+				
+				
+			return jb2;
+	}
 	
 }

@@ -64,7 +64,7 @@ public class DAOUserImpl implements DAOUser{
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="insert into users (username,password,enabled) values (?,?,1)";
+		String sql="insert ignore into users (username,password,enabled) values (?,?,1)";
 		
 		jdbc.update(sql,new Object[]{u.getUsername(),password});
 		

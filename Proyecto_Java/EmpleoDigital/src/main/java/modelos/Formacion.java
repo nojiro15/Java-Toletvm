@@ -2,6 +2,7 @@ package modelos;
 
 import java.util.Date;
 
+import dao.DAOMunicipio;
 import utils.DateUtils;
 
 /**
@@ -21,39 +22,42 @@ public class Formacion {
 	private String nombre; 
 	private Date fechaInicio;
 	private int idMunicipio;
-	private Date fechaFin;
-	
+	private Municipio municipio;
+	private DAOMunicipio daomu;
 	/**
 	 * Constructores por orden:
 	 * Vacío
-	 * Sin Id y sin Fecha de Fin
-	 * Sin Id y con Fecha de Fin
-	 * Con Id y sin Fecha de Fin
-	 * Con Id y con Fecha de Fin
+	 * Sin Id 
+	 * Con Id 
 	 */
 	public Formacion(){}
+	
+	public Formacion(String nombre, Date fechaInicio, Municipio municipio){
+		
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+		this.setMunicipio(municipio);
+	}
+	
+	public Formacion(int id, String nombre, Date fechaInicio,Municipio municipio){
+		this.id = id;
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+		this.setMunicipio(municipio);
+	}
 	
 	public Formacion(String nombre, Date fechaInicio, int idMunicipio){
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
-	}
-	
-	public Formacion(String nombre, Date fechaInicio, int idMunicipio, Date fechaFin){
-		this.nombre = nombre;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
+		this.idMunicipio = idMunicipio;
 	}
 	
 	public Formacion(int id, String nombre, Date fechaInicio, int idMunicipio){
 		this.id = id;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
-	}
-	public Formacion(int id, String nombre, Date fechaInicio, int idMunicipio, Date fechaFin){
-		this.id = id;
-		this.nombre = nombre;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
+		this.idMunicipio = idMunicipio;
+
 	}
 	
 	/**
@@ -73,9 +77,7 @@ public class Formacion {
 		return idMunicipio;
 	}
 	
-	public Date getFechaFin(){
-		return fechaFin;
-	}
+
 	
 	/**
 	 * Setters
@@ -92,14 +94,18 @@ public class Formacion {
 	public void setIdMunicipio(int idMunicipio){
 		this.idMunicipio = idMunicipio;
 	}
-	public void setFechaFin(Date fechaFin){
-		this.fechaFin = fechaFin;
-	}
+
 	
 	public String getStringFechaInicio(){
 		return DateUtils.formatearFecha(fechaInicio);
 	}
-	public String getStringFechaFin(){
-		return DateUtils.formatearFecha(fechaFin);
+
+	public Municipio getMunicipio() {
+		return municipio;
 	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
 }

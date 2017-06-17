@@ -11,5 +11,6 @@ public interface DAOModuloFormacion{
 	public boolean update(ModuloFormacion mf);
 	public boolean delete(ModuloFormacion mf);
 	public List<ModuloFormacion> listar();
-
+	public List<ModuloFormacion> listarByIdFormacion(int idFormacion);
+	public List<ModuloFormacion> listarByBloque(int bloque);
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import modelos.FiestaNacional;
@@ -9,8 +10,8 @@ import modelos.FiestaNacional;
 public interface DAOFiestaNacional {
 
 	public boolean create(FiestaNacional n);
-	public FiestaNacional read(String palabra);
-	public boolean update(FiestaNacional n);
-	public boolean delete(String nombre);
+	public FiestaNacional read(Date fecha);
+	public boolean update(FiestaNacional n,Date fechaOriginal);
+	public boolean delete(Date fecha);
 	public List<FiestaNacional> listar();
 }

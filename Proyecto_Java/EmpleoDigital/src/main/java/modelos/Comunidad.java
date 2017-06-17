@@ -29,7 +29,7 @@ public class Comunidad {
 	 * @param comunidad: Nombre de la comunidad
 	 */
 	
-	public Comunidad(int id, String slug,String comunidad){
+	public Comunidad(int id, String comunidad,String slug){
 		this.id=id;
 		this.slug=slug;
 		this.comunidad=comunidad;

@@ -1,5 +1,6 @@
 package modelos;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import utils.DateUtils;
@@ -13,7 +14,7 @@ public class FiestaNacional {
 		
 	}
 	
-	public FiestaNacional(Date fecha,String nombre){
+	public FiestaNacional(String nombre,Date fecha){
 		this.fecha=fecha;
 		this.nombre=nombre;
 	}
@@ -36,5 +37,9 @@ public class FiestaNacional {
 	
 	public String getStringFecha(){
 		return DateUtils.formatearFecha(fecha);
+	}
+	public long getIntFecha(){
+		long i = fecha.getTime();
+		return i;
 	}
 }

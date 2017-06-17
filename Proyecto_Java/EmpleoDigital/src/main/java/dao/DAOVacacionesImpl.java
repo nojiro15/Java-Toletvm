@@ -19,9 +19,8 @@ public class DAOVacacionesImpl implements DAOVacaciones{
 			Vacaciones v=new Vacaciones(
 					rs.getInt("id"),
 					rs.getString("asunto"),
-					new java.util.Date(rs.getDate("fechaInicio").getTime()),
-					new java.util.Date(rs.getDate("fechaFin").getTime()),
-					rs.getInt("idFormacion"));			
+					rs.getDate("fecha"),
+					rs.getInt("id_formacion"));			
 	
 			return v;
 		}	
@@ -43,9 +42,9 @@ public class DAOVacacionesImpl implements DAOVacaciones{
 				
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
 		
-		String sql="insert into vacaciones (asunto,fecha_inicio,fecha_fin,formacion) values (?,?,?,?)";
+		String sql="insert ignore into vacaciones (asunto,fecha,id_formacion) values (?,?,?)";
 	
-		int n=jdbc.update(sql,new Object[]{v.getAsunto(),v.getFechaInicio().getTime(),v.getFechaFin().getTime(),v.getIdFormacion()});
+		int n=jdbc.update(sql,new Object[]{v.getAsunto(),v.getFecha(),v.getIdFormacion()});
 		
 		return n>0;		
 	}
@@ -65,8 +64,7 @@ public class DAOVacacionesImpl implements DAOVacaciones{
 	public boolean update(Vacaciones v) {
 		String sql="update vacaciones set "
 				+ "asunto=?,"
-				+ "fecha_inicio=?, "
-				+ "fecha_fin=?, "
+				+ "fecha=?, "
 				+ "where formacion=? ";
 		
 		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
@@ -74,8 +72,7 @@ public class DAOVacacionesImpl implements DAOVacaciones{
 		int n=jdbc.update(sql,
 				new Object[]{
 						v.getAsunto(),
-						new java.sql.Date(v.getFechaInicio().getTime()),
-						new java.sql.Date(v.getFechaFin().getTime()),
+						v.getFecha(),
 						v.getIdFormacion()});
 		return n>0;
 	}
@@ -102,6 +99,18 @@ public class DAOVacacionesImpl implements DAOVacaciones{
 		String sql="select * from vacaciones";
 		
 		lista=jdbc.query(sql,new VacacionesRowMapper());
+		
+		return lista;
+	}
+	
+	public List<Vacaciones> listarByIdFormacion(int idFormacion){
+		List<Vacaciones> lista;
+		
+		JdbcTemplate jdbc=new JdbcTemplate(dataSource);
+		
+		String sql="select * from vacaciones where id_formacion = ?";
+		
+		lista=jdbc.query(sql, new Object[]{idFormacion}, new VacacionesRowMapper());
 		
 		return lista;
 	}

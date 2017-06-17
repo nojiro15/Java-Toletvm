@@ -18,6 +18,19 @@ public class Modulo {
 		 * 'Bloque' == 2 ==> SUMA hace referencia a los módulos de Habilidades Personales
 		 */
 		TRONCAL, METODO, SUMA;
+		
+		@Override
+		public String toString(){
+			String r="";
+					
+			switch(this){
+			case TRONCAL: r="Troncal"; break;
+			case METODO: r="Metodologías de la Programación"; break;
+			case SUMA: r="Habilidades"; break;
+			}
+			return r;
+		}
+		 
 	}
 	
 	/**Propiedades del objeto Módulo
@@ -28,12 +41,12 @@ public class Modulo {
 	 *  horasTutorias --Número de horas de tutoría de las que constará el módulo
 	 *  bloque --Bloque al que pertenecerá el módulo.
 	 */
-	private int id;
-	private String nombre; 
-	private int jornadas; 
-	private int horas; 
-	private int horasTutorias; 
-	private Bloque bloque; 
+	protected int id;
+	protected String nombre; 
+	protected int jornadas; 
+	protected int horas; 
+	protected int horasTutorias; 
+	protected Bloque bloque; 
 	
 	
 	/**
@@ -44,6 +57,7 @@ public class Modulo {
 	public Modulo(String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque){
 		this.nombre = nombre;
 		this.horas = horas;
+		this.jornadas=jornadas;
 		this.horasTutorias = horasTutoria;
 		this.bloque = bloque;
 	}
@@ -51,6 +65,7 @@ public class Modulo {
 	public Modulo(int id, String nombre, int jornadas, int horas, int horasTutoria, Bloque bloque){
 		this.id = id;
 		this.nombre = nombre;
+		this.jornadas=jornadas;
 		this.horas = horas;
 		this.horasTutorias = horasTutoria;
 		this.bloque = bloque;
